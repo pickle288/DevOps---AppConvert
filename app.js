@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8080;
 app.use(express.static('public'));
 app.use(express.json());
 
-// Taux de change fixes (pour éviter les dépendances externes en CI/CD)
+// Taux de change fixes
 const EXCHANGE_RATES = {
   EUR: { USD: 1.08, GBP: 0.86, CHF: 0.94 },
   USD: { EUR: 0.93, GBP: 0.80, CHF: 0.87 },
@@ -20,10 +20,10 @@ const EXCHANGE_RATES = {
 // 🧪 ENDPOINT PRINCIPAL
 app.get('/convert', async (req, res) => {
   try {
-    const { amount, from, to } = req.query;
+    const { amount, from: fromRaw, to: toRaw } = req.query;
 
     // Validation
-    if (!amount || !from || !to) {
+    if (!amount || !fromRaw || !toRaw) {
       return res.status(400).json({
         error: 'Paramètres manquants',
         required: 'amount, from, to'
@@ -35,10 +35,10 @@ app.get('/convert', async (req, res) => {
       return res.status(400).json({ error: 'Montant invalide' });
     }
 
-    from = from.toUpperCase();
-    to = to.toUpperCase();
+    const from = fromRaw.toUpperCase();  // ✅ RENVOMMÉE
+    const to = toRaw.toUpperCase();      // ✅ RENVOMMÉE
 
-    // Vérification devises supportées
+    // Vérification devises
     if (!EXCHANGE_RATES[from] || !EXCHANGE_RATES[from][to]) {
       return res.status(400).json({
         error: 'Paire de devises non supportée',
@@ -56,7 +56,7 @@ app.get('/convert', async (req, res) => {
       to,
       amount: amountNum,
       rate,
-      converted: Math.round(converted * 100) / 100, // 2 décimales
+      converted: Math.round(converted * 100) / 100,
       date: new Date().toISOString()
     });
 
@@ -66,12 +66,12 @@ app.get('/convert', async (req, res) => {
   }
 });
 
-// Endpoint info (pour health check)
+// Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// Page d'accueil (interface web)
+// Page d'accueil
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
