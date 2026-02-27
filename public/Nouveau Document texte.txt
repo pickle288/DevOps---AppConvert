@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <style>
+        * { font-family: system-ui, sans-serif; margin: 0; padding: 0; }
+        body { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 { 
+            text-align: center; 
+            color: #333; 
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            color: #555; 
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover { transform: translateY(-2px); }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+        .loading { display: none; text-align: center; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💱 Currency Converter</h1>
+        
+        <form id="converterForm">
+            <div class="form-group">
+                <label for="amount">Montant:</label>
+                <input type="number" id="amount" placeholder="100" step="0.01" min="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="from">De:</label>
+                <select id="from" required>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="CHF">CHF (₣)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="to">Vers:</label>
+                <select id="to" required>
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="CHF">CHF (₣)</option>
+                </select>
+            </div>
+            
+            <button type="submit">Convertir</button>
+        </form>
+        
+        <div class="loading" id="loading">⏳ Conversion en cours...</div>
+        
+        <div class="result" id="result">
+            <h3>Résultat:</h3>
+            <p id="resultText"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('converterForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const amount = document.getElementById('amount').value;
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            
+            const btn = e.target.querySelector('button');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            
+            // UI states
+            btn.disabled = true;
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            
+            try {
+                const response = await fetch(`/convert?amount=${amount}&from=${from}&to=${to}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('resultText').innerHTML = `
+                        <strong>${data.amount} ${data.from} → ${data.converted} ${data.to}</strong><br>
+                        Taux: 1 ${data.from} = ${data.rate} ${data.to}<br>
+                        <small>Convertit le ${new Date(data.date).toLocaleString('fr-FR')}</small>
+                    `;
+                    result.style.display = 'block';
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                alert('Erreur: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                loading.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
