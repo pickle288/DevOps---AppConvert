@@ -22,7 +22,7 @@ un environnement d’exécution identique entre les postes de développement,la 
 Depuis le répertoire du projet :
 1/  docker build -t app-convert .
 2/  docker run -p 8080:8080 app-convert
-3/  -- http://localhost:3000 --
+3/  -- http://localhost:8080 --
 
 ---
 
