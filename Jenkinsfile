@@ -11,15 +11,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                withCredentials([string(credentialsId: 't', variable: 'GITHUB_TOKEN')]) {
-                    checkout scm
-                    echo 'Checking out...'
-                }
-            }
-        }
-
         stage('deps') {
             steps {
                 sh 'npm ci'
