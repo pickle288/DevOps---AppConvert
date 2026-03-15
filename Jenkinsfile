@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'debian' }
+    agent { label 'docker' }
 
     options {
         disableConcurrentBuilds()
