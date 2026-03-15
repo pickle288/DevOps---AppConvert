@@ -15,7 +15,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // pour importer le code source dans l'agent (ex: git checkout)
+             // pour importer le code source dans l'agent (ex: git checkout)
+             withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
                 checkout scm
                 echo 'Checking out...'
              }
@@ -64,4 +65,4 @@ pipeline {
         }
         }
     }
-}
+}   
