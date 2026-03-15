@@ -20,7 +20,7 @@ pipeline {
                 echo 'Checking out...'
              }
             }
-     stage('deps') {
+        stage('deps') {
             steps {
                 // pour installer les dépendances, configurer l'environnement, etc.
                 sh 'npm ci'
@@ -41,7 +41,7 @@ pipeline {
                 echo 'Linting...'
             }
         }
-//Build : sert à construire l'application, compiler le code source, etc.
+            //Build : sert à construire l'application, compiler le code source, etc.
         stage('Build') {
             steps {
                 // Commandes pour construire l'application
@@ -62,5 +62,6 @@ pipeline {
                     echo 'Deploying...'
             }
         }
+        }
     }
-    }
+}
