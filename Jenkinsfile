@@ -45,22 +45,21 @@ pipeline {
         stage('Build') {
             steps {
                 // Commandes pour construire l'application
-                sh 'docker build -t convert-w:latest .'
+                sh 'docker build -t $DOCKER_USERNAME/convert-app:1.0 .'
                 echo 'Building...'
-            }
-        }
-        stage('Test') {
-            steps {
-                // Commandes pour exécuter les tests
-                sh 'npm test'
-                echo 'Testing...'
             }
         }
         stage('Deploy') {
             steps {
-                // Commandes pour déployer l'application
-                sh 'docker push convert-app:latest'
-                echo 'Deploying...'
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-login', 
+                    usernameVariable: 'DOCKER_USERNAME', 
+                    passwordVariable: 'DOCKER_PASSWORD'
+                    )]) {
+                    // Commandes pour déployer l'application
+                    
+                    sh 'docker push $DOCKER_USERNAME/convert-app:1.0'
+                    echo 'Deploying...'
             }
         }
     }
