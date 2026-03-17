@@ -1,13 +1,9 @@
 pipeline {
     agent { label 'docker' }
 
-    options {
-        //disableConcurrentBuilds()
-    }
+    //options {//disableConcurrentBuilds()}
 
-    environment {
-        //EXAMPLE_VAR = 'value'
-    }
+    //environment { //EXAMPLE_VAR = 'value'}
 
     stages {
 
