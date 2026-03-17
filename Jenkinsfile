@@ -15,7 +15,7 @@ pipeline {
         }
         stage('lint') {
             steps {
-                sh 'eslint .'
+                sh 'npx eslint .'
                 echo 'Linting...'
             }
         }
