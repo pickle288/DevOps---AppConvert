@@ -14,7 +14,7 @@ const EXCHANGE_RATES = {
   EUR: { USD: 1.08, GBP: 0.86, CHF: 0.94 },
   USD: { EUR: 0.93, GBP: 0.80, CHF: 0.87 },
   GBP: { EUR: 1.16, USD: 1.25, CHF: 1.09 },
-  CHF: { EUR: 1.06, USD: 1.15, GBP: 0.92 }
+  CHF: { EUR: 1.06, USD: 1.15, GBP: 0.92 },
 };
 
 // 🧪 ENDPOINT PRINCIPAL
@@ -26,7 +26,7 @@ app.get('/convert', async (req, res) => {
     if (!amount || !fromRaw || !toRaw) {
       return res.status(400).json({
         error: 'Paramètres manquants',
-        required: 'amount, from, to'
+        required: 'amount, from, to',
       });
     }
 
@@ -42,7 +42,7 @@ app.get('/convert', async (req, res) => {
     if (!EXCHANGE_RATES[from] || !EXCHANGE_RATES[from][to]) {
       return res.status(400).json({
         error: 'Paire de devises non supportée',
-        supported: Object.keys(EXCHANGE_RATES)
+        supported: Object.keys(EXCHANGE_RATES),
       });
     }
 
@@ -57,7 +57,7 @@ app.get('/convert', async (req, res) => {
       amount: amountNum,
       rate,
       converted: Math.round(converted * 100) / 100,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     });
 
   } catch (error) {

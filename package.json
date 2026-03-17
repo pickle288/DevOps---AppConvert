@@ -4,7 +4,6 @@
   "description": "Simple currency converter API for DevOps TP",
   "main": "app.js",
   "type": "module",
-  
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
@@ -18,6 +17,7 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "eslint": "^10.0.3",
     "jest": "^30.3.0",
     "supertest": "^7.2.2"
