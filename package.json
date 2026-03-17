@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Simple currency converter API for DevOps TP",
   "main": "app.js",
+  "type": "module",
+  
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",

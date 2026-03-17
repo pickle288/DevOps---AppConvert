@@ -1,4 +1,6 @@
-﻿export default [
+﻿import express from "express";
+
+export default [
   js.configs.recommended,
   {
     files: ["**/*.js"],
