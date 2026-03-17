@@ -1,4 +1,4 @@
-﻿import express from "express";
+﻿import js from "@eslint/js";
 
 export default [
   js.configs.recommended,
