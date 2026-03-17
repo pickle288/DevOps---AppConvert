@@ -2,11 +2,11 @@ pipeline {
     agent { label 'docker' }
 
     options {
-        disableConcurrentBuilds()
+        //disableConcurrentBuilds()
     }
 
     environment {
-        EXAMPLE_VAR = 'value'
+        //EXAMPLE_VAR = 'value'
     }
 
     stages {
@@ -23,14 +23,14 @@ pipeline {
                 echo 'Linting...'
             }
         }
-
-        stage('Build') {
+        stage('test') {
             steps {
-                sh 'docker build -t $DOCKER_USERNAME/convert-app:1.0 .'
-                echo 'Building...'
+                sh 'npm test'
+                echo 'Testing...'
             }
         }
-        stage('Deploy') {
+        
+        stage('build & push') {
             steps {
                 withCredentials([
                     usernamePassword(
@@ -39,8 +39,12 @@ pipeline {
                         passwordVariable: 'DOCKER_PASSWORD'
                     )
                 ]) {
-                    sh 'docker push $DOCKER_USERNAME/convert-app:1.0'
-                    echo 'Deploying...'
+                sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                sh 'docker build -t $DOCKER_USERNAME/convert-app:1.0 .'
+                echo 'Building...'
+                sh 'docker push $DOCKER_USERNAME/convert-app:1.0'
+                echo 'Deploying...'
+                
                 }
             }
         }
