@@ -15,7 +15,8 @@ pipeline {
         }
         stage('lint') {
             steps {
-                sh 'eslint .'
+                //run du script lint eslint.config.json
+                sh 'npm run lint'
                 echo 'Linting...'
             }
         }
