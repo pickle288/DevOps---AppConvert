@@ -6,7 +6,7 @@ export default [
     files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: 'module',
+      sourceType: 'script',
       globals: {
         process: 'readonly',
         __dirname: 'readonly',
