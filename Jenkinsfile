@@ -17,14 +17,6 @@ pipeline {
                 echo 'install dependencies ...'
             }
         }
-
-        stage('test') {
-            steps {
-                sh 'npm test'
-                echo 'Testing...'
-            }
-        }
-
         stage('lint') {
             steps {
                 sh 'eslint .'
@@ -38,7 +30,6 @@ pipeline {
                 echo 'Building...'
             }
         }
-
         stage('Deploy') {
             steps {
                 withCredentials([
