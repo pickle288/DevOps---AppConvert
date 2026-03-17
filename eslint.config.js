@@ -1,6 +1,4 @@
-﻿import js from "@eslint/js";
-
-export default [
+﻿export default [
   js.configs.recommended,
   {
     files: ["**/*.js"],
