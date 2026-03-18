@@ -1,4 +1,7 @@
-const app = require('./app');
+import app from './app.js';
+
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => console.log("Server running"));
+app.listen(PORT, () => {
+  console.log("Server running");
+});

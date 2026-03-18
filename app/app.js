@@ -1,5 +1,10 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// 👉 équivalent moderne de __dirname en ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -42,5 +47,5 @@ app.get('/convert', async (req, res) => {
   });
 });
 
-// 👉 indispensable pour Jest
-module.exports = app;
+// 👉 indispensable pour Jest en ESM
+export default app;
