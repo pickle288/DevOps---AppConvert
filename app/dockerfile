@@ -2,9 +2,8 @@
 FROM node:18-alpine AS builder
 
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production --no-optional && npm cache clean --force
-
+COPY ../package.json ../package-lock.json ./
+RUN npm clean-install --omit=dev
 # Stage de production
 FROM node:18-alpine AS production
 
@@ -12,8 +11,7 @@ WORKDIR /app
 
 # Copie des dépendances depuis le stage builder
 COPY --from=builder /app/node_modules ./node_modules
-COPY . .
-
+COPY . . 
 # Exposition du port
 EXPOSE 8080
 

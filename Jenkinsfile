@@ -9,7 +9,7 @@ pipeline {
 
         stage('deps') {
             steps {
-                sh 'npm ci'
+                sh 'npm ci ../app'
                 echo 'install dependencies ...'
             }
         }
