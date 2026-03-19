@@ -1,21 +1,22 @@
 ﻿const js = require("@eslint/js");
+const globals = require("globals");
 
 module.exports = [
-  js.configs.recommended,
+  // 🔥 Config de base
   {
     files: ["**/*.js"],
+    ignores: ["node_modules/**"],
+
     languageOptions: {
-      ecmaVersion: 2021,
+      ecmaVersion: "latest",
       sourceType: "module",
       globals: {
-        require: "readonly",
-        module: "readonly",
-        __dirname: "readonly",
-        process: "readonly",
-        console: "readonly"
-      }
+        ...globals.node,     // les globals Node standard
+      },
     },
+
     rules: {
+      ...js.configs.recommended.rules,
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "no-console": "off",
       "eqeqeq": ["error", "always"],
@@ -23,26 +24,16 @@ module.exports = [
       "quotes": ["error", "single", { avoidEscape: true }],
       "semi": ["error", "always"],
       "indent": ["error", 2],
-      "comma-dangle": ["error", "always-multiline"]
+      "comma-dangle": ["error", "always-multiline"],
     }
-  }
-];
+  },
 
-
-module.exports = [
-  // … ta config par défaut
+  // 🔥 Config spéciale pour Jest
   {
     files: ["**/*.test.js", "**/*.spec.js"],
     languageOptions: {
       globals: {
-        describe: "readonly",
-        test: "readonly",
-        it: "readonly",
-        expect: "readonly",
-        beforeAll: "readonly",
-        afterAll: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly",
+        ...globals.jest, // contient test, expect, describe, etc.
       },
     },
   },
