@@ -6,7 +6,7 @@ module.exports = [
     files: ["**/*.js"],
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: "script",
+      sourceType: "module",
       globals: {
         require: "readonly",
         module: "readonly",
@@ -26,4 +26,24 @@ module.exports = [
       "comma-dangle": ["error", "always-multiline"]
     }
   }
+];
+
+
+module.exports = [
+  // … ta config par défaut
+  {
+    files: ["**/*.test.js", "**/*.spec.js"],
+    languageOptions: {
+      globals: {
+        describe: "readonly",
+        test: "readonly",
+        it: "readonly",
+        expect: "readonly",
+        beforeAll: "readonly",
+        afterAll: "readonly",
+        beforeEach: "readonly",
+        afterEach: "readonly",
+      },
+    },
+  },
 ];

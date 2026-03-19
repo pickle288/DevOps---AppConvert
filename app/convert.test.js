@@ -1,5 +1,5 @@
-const request = require('supertest');
-const app = require('./app');
+import request from 'supertest';
+import app from './app.js'; // note le .js, nécessaire en ESM
 
 test('convertit 100 EUR en USD', async () => {
   const res = await request(app)
