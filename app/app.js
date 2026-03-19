@@ -23,19 +23,19 @@ app.get('/convert', async (req, res) => {
   const { amount, from, to } = req.query;
 
   if (!amount || !from || !to) {
-    return res.status(400).json({ error: 'Paramètres manquants' });
+    return res.status(400).json({ success: false, error: 'Paramètres manquants' });
   }
 
   const amountNum = parseFloat(amount);
   if (isNaN(amountNum) || amountNum <= 0) {
-    return res.status(400).json({ error: 'Montant invalide' });
+    return res.status(400).json({ success: false, error: 'Montant invalide' });
   }
 
-  const fromU = from.toUpperCase();
-  const toU = to.toUpperCase();
+  const fromU = String(from).toUpperCase();
+  const toU = String(to).toUpperCase();
 
   if (!EXCHANGE_RATES[fromU] || !EXCHANGE_RATES[fromU][toU]) {
-    return res.status(400).json({ error: 'Paire de devises non supportée' });
+    return res.status(400).json({ success: false, error: 'Paire de devises non supportée' });
   }
 
   const rate = EXCHANGE_RATES[fromU][toU];
@@ -43,7 +43,12 @@ app.get('/convert', async (req, res) => {
 
   res.json({
     success: true,
+    amount: amountNum,       // 👈 ajouté
+    from: fromU,             // 👈 ajouté
+    to: toU,                 // 👈 ajouté
+    rate,                    // 👈 ajouté
     converted,
+    date: new Date().toISOString(), // 👈 ajouté
   });
 });
 
