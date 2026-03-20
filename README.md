@@ -1,38 +1,30 @@
 # app-convert – Application conteneurisée
 ##  Objectif
-Création d'une app simple qui permet de convertir un montant d’une devise vers une autre via une API REST simple.  
-Elle sert de base à la mise en place d’une chaîne DevOps complète : 
-conteneurisation, CI/CD, infrastructure as code et déploiement sur AWS. 
+Ce projet a pour but de mettre en place une pipeline CI/CD complète autour d’une application Node.js conteneurisée avec Docker.
+L’infrastructure s’appuie sur une VM locale hébergeant Jenkins et sur un dépôt GitHub, avec un déploiement cible sur AWS (ECR + ECS Fargate).
 ---
 
 ## 🐳 Conteneurisation Docker
-L’application est packagée dans une image Docker afin de garantir 
+L’application est packagée dans une image Docker éxposée sur le port 8080 afin de garantir 
 un environnement d’exécution identique entre les postes de développement,la CI et la production.
 
 ##  Architecture
-
+- VM locale avec Jenkins (pipeline declarative)
+- Code source hébergé sur GitHub (branching et triggers CI)
 - Application Node.js (Express)
-- Endpoint REST : /convert
-- Conteneurisation via Docker
-- Exposition sur le port 8080
-
+- Endpoint REST principal : /convert
+- Intégration avec AWS :
+  -  amazon ECR pour le registre d’images
+  - Amazon ECS (Fargate) pour l’orchestration des containers
+  - Réseau AWS géré via Terraform (VPC, sous-réseaux, etc.)
 ---
 
-### Build de l'image
-Depuis le répertoire du projet :
-1/  docker build -t app-convert .
-2/  docker run -p 8080:8080 app-convert
-3/  -- http://localhost:8080 --
+## Workflow
 
----
-
-## 🚀 Évolutions prévues (DevOps)
-
-- Mise en place d’un pipeline CI/CD GitLab
-- Tests automatisés
-- Push de l’image vers AWS ECR
-- Déploiement sur AWS ECS (Fargate)
-- Provisionnement de l’infrastructure avec Terraform
-- Gestion sécurisée des credentials
+- Mise en place d’un pipeline CI/CD Jenkins (lint, tests, build, push, déploiement)
+- Gestion sécurisée des credentials (Jenkins credentials / AWS IAM)
+- Build et push automatisés de l’image Docker vers AWS ECR
+- Déploiement automatisé sur AWS ECS (Fargate)
+- Provisionnement et mise à jour de l’infrastructure AWS avec Terraform
 
 ---
