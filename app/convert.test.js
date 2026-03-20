@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from './app.js'; // note le .js, nécessaire en ESM
+import app from './app.js';
 
 test('convertit 100 EUR en USD', async () => {
   const res = await request(app)

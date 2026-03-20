@@ -3,7 +3,10 @@ pipeline {
 
     //options {//disableConcurrentBuilds()}
 
-    //environment { //EXAMPLE_VAR = 'value'}
+    environment { 
+        image-version = 'convert-app:1.0'
+        }
+
 
     stages {
 
@@ -37,11 +40,12 @@ pipeline {
                     )
                 ]) {
                 sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                sh 'docker build -t $DOCKER_USERNAME/convert-app:1.0 .'
+                sh 'docker build -t $DOCKER_USERNAME/$image-version .'
                 echo 'Building...'
-                sh 'docker push $DOCKER_USERNAME/convert-app:1.0'
-                echo 'Deploying...'
-                
+                sh 'docker push $DOCKER_USERNAME/$image-version'
+                echo 'Deploying... name of image '
+
+
                 }
             }
         }
