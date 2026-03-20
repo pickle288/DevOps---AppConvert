@@ -41,15 +41,18 @@ app.get('/convert', async (req, res) => {
   const rate = EXCHANGE_RATES[fromU][toU];
   const converted = Math.round(amountNum * rate * 100) / 100;
 
+
   res.json({
     success: true,
-    amount: amountNum,       // 👈 ajouté
-    from: fromU,             // 👈 ajouté
-    to: toU,                 // 👈 ajouté
-    rate,                    // 👈 ajouté
+    amount: amountNum,
+    from: fromU,
+    to: toU,
+    rate,
     converted,
-    date: new Date().toISOString(), // 👈 ajouté
+    date: new Date().toISOString(),
   });
+
+
 });
 
 // 👉 indispensable pour Jest en ESM
