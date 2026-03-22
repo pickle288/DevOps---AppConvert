@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "lint": "eslint app",
+    "lint": "eslint",
     "test": "set NODE_OPTIONS=--experimental-vm-modules && jest"
   },
   "dependencies": {
