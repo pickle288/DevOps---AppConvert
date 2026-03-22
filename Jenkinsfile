@@ -4,7 +4,7 @@ pipeline {
     //options {//disableConcurrentBuilds()}
 
     environment { 
-        image-version = 'convert-app:1.0'
+        image_version = 'convert-app:1.0'
         }
 
 
@@ -40,9 +40,9 @@ pipeline {
                     )
                 ]) {
                 sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                sh 'docker build -f /app/Dockerfile -t pickle288/$image-version'
+                sh 'docker build -f /app/Dockerfile -t pickle288/$image_version'
                 echo 'Building...'
-                sh 'docker push $DOCKER_USERNAME/$image-version'
+                sh 'docker push $DOCKER_USERNAME/$image_version'
                 echo 'Deploying... name of image '
 
 
