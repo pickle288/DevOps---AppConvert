@@ -1,5 +1,5 @@
-import request from 'supertest';
-import app from './app.js';
+const request = require('supertest');
+const app = require('./app');
 
 test('convertit 100 EUR en USD', async () => {
   const res = await request(app)

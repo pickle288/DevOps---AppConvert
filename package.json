@@ -1,7 +1,7 @@
 {
-  "name": "currency-converter",
+  "name": "app-converter",
   "version": "1.0.0",
-  "description": "Simple currency converter API for DevOps TP",
+  "description": "Simple app converter API for DevOps TP",
   "main": "app.js",
   "type": "module",
   "scripts": {
@@ -11,6 +11,7 @@
     "test": "set NODE_OPTIONS=--experimental-vm-modules && jest"
   },
   "dependencies": {
+    "20": "^3.1.9",
     "axios": "^1.6.0",
     "express": "^5.2.1"
   },
