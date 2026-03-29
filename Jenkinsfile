@@ -23,6 +23,7 @@ pipeline {
                 sh 'which node'
                 sh 'node -v'
                 sh 'npm -v'
+        }
     }
         stage('lint') {
             steps {
@@ -32,7 +33,6 @@ pipeline {
             }
         }
         
-}
         stage('test') {
             steps {
                 sh 'npm test'
