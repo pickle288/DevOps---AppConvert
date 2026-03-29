@@ -16,6 +16,14 @@ pipeline {
                 echo 'install dependencies ...'
             }
         }
+        stage('debug') {
+            steps {
+                sh 'echo USER=$(whoami)'
+                sh 'echo PATH=$PATH'
+                sh 'which node'
+                sh 'node -v'
+                sh 'npm -v'
+    }
         stage('lint') {
             steps {
                 //run du script lint eslint.config.json
@@ -23,14 +31,7 @@ pipeline {
                 echo 'Linting...'
             }
         }
-        stage('debug') {
-    steps {
-        sh 'echo USER=$(whoami)'
-        sh 'echo PATH=$PATH'
-        sh 'which node'
-        sh 'node -v'
-        sh 'npm -v'
-    }
+        
 }
         stage('test') {
             steps {
