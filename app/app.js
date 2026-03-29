@@ -1,5 +1,5 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import path from 'path';
 // 👉 équivalent moderne de __dirname en ESM
 
 const app = express();
@@ -52,4 +52,4 @@ app.get('/convert', async (req, res) => {
 });
 
 // 👉 indispensable pour Jest en ESM
-module.exports = app;
+export default app;
