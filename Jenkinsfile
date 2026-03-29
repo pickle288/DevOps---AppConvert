@@ -52,7 +52,7 @@ pipeline {
                 sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
                 sh 'docker build -f app/dockerfile -t pickle288/$image_version .'
                 echo 'Building...'
-                sh 'docker push $DOCKER_USERNAME/$image_version'
+                sh 'docker push pickle288/$image_version'
                 echo 'Deploying... name of image '
 
 
